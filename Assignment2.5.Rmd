@@ -1,0 +1,60 @@
+---
+title: "Assignment 2.5"
+subtitle: "CPSC 292 Section 02 (Waldrop)"
+author: "Bailey Kielb"
+date: "10/13/2023"
+output: html_notebook
+---
+
+
+## Assignment 2.5
+
+```{r, include=TRUE}
+# Loading required libraries
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+```
+
+### Question 1
+
+*Write a 200-word (approximately) that summarizes and briefly explains the three major takeaways from Lecture 2.6 How We See. Your summary should explain:*
+ 
+ * *What are the three main takeaways*
+ * *What part of the biology dictates why they work that way*
+ * *How they impact the creation of good graphics*
+
+Contrast is key! Elements of equal luminance should not be used together on the same graph because not only is it harder to read, but people with vision impairments may not be able to process the information at all. This goes for colors like red and green (complementary colors) and even gray scale Mach banding that has more than 5 shades.
+Site is based off visual processing, not image transmission. Different regions of the brain process the fields of vision from each eye. The Parietal lobe is responsible for the “where” system (visual guiding/motion) and the Temporal lobe is responsible for the “what” system (object recognition). The eyes send information to the brain for processing and the brain tries to make sense of the information and fill in any missing gaps for what an object or space *must* be based off what it knows.
+Given that contrast is one of the main cues our eyes and brain use to process what we see, good graphics must have objects of high contrast that easily stand out from each other. Complementary colors, colors of similar luminance, and too broad of a spread of the information should be avoided. Fast-processing differences such as unique shapes and intensities should be utilized. 
+
+
+### Question 2 
+
+*On slide 33 of Lecture 2.6, there is a list of fast-processing features that can be used to distinguish data groups from each other. In three separate scatter plots graphing Sepal.Length versus Sepal.Width in the iris data set, create a demonstration of one fast-processing feature that distinguishes the different species from one another. You should have three separate plots, each showing a different fast-processing difference.*
+
+Fast-processing example 1: 
+```{r}
+data("iris")
+
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color=Species)) + geom_point()
+
+```
+
+Fast-processing example 2: 
+```{r}
+
+ggplot(iris, aes(Sepal.Width, Sepal.Length)) + geom_point(aes(shape=Species)) +
+  scale_shape_manual(values = c(18,15,19))
+
+```
+
+Fast-processing example 3: 
+```{r}
+library(ggforce)
+
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color=Species)) + geom_point() +
+  geom_mark_ellipse()
+
+```
+Had help for the last example from: https://www.geeksforgeeks.org/how-to-annotate-clusters-with-circle-ellipse-by-a-variable-in-r-ggplot2/
